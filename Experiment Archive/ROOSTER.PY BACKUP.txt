@@ -1,0 +1,302 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+
+options = webdriver.ChromeOptions()
+options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+time.sleep(2)
+w.get("https://web.whatsapp.com/")
+wait = WebDriverWait(w, 600)
+
+target = '"Driss"'
+string = "Bericht van Computer"
+
+x_arg = '//span[contains(@title,' + target + ')]'
+group_title = wait.until(EC.presence_of_element_located((
+    By.XPATH, x_arg)))
+group_title.click()
+
+inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="9"]'
+input_box = wait.until(EC.presence_of_element_located((
+    By.XPATH, inp_xpath)))
+
+for i in range(100):
+    input_box.send_keys(string + Keys.ENTER)
+    time.sleep(1)
+
+==========================
+
+# Reading an excel file using Python
+import xlrd
+
+# Give the location of the file
+loc = (r"C:\Users\Beheerder\Documents\TEST.xlsx")
+
+# To open Workbook
+wb = xlrd.open_workbook(loc)
+sheet = wb.sheet_by_index(0)
+
+# For row 0 and column 0
+print(sheet.cell_value(0, 0))
+
+===============================
+
+import pandas as pd
+table = pd.read_excel(r"C:\Users\Beheerder\Documents\TEST.xlsx")
+
+print(table)
+================================
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+import pandas as pd
+
+options = webdriver.ChromeOptions()
+options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+time.sleep(2)
+w.get("https://web.whatsapp.com/")
+wait = WebDriverWait(w, 600)
+
+table = pd.read_excel(r"C:\Users\Beheerder\Documents\TEST.xlsx")
+file = open('tekst.txt','w')
+file.write(str(table))
+
+target = '"Driss"'
+string = table
+
+x_arg = '//span[contains(@title,' + target + ')]'
+group_title = wait.until(EC.presence_of_element_located((
+    By.XPATH, x_arg)))
+group_title.click()
+
+inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="9"]'
+input_box = wait.until(EC.presence_of_element_located((
+    By.XPATH, inp_xpath)))
+
+for i in range(100):
+    input_box.send_keys(string + Keys.ENTER)
+    time.sleep(10)
+
+================
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+import openpyxl
+import pandas as pd
+
+table = pd.read_excel(r"C:\Users\Beheerder\Documents\TEST.xlsx")
+
+def write():
+    file = open('tekst.txt','w')
+    file.write(str(table))
+    file.close()
+
+write()
+
+file = open('tekst.txt', 'r')
+string = str(file.readlines())
+print(string)
+
+options = webdriver.ChromeOptions()
+options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+time.sleep(2)
+w.get("https://web.whatsapp.com/")
+wait = WebDriverWait(w, 600)
+
+target = '"Driss"'
+#string = table
+
+x_arg = '//span[contains(@title,' + target + ')]'
+group_title = wait.until(EC.presence_of_element_located((
+    By.XPATH, x_arg)))
+group_title.click()
+
+inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="9"]'
+input_box = wait.until(EC.presence_of_element_located((
+    By.XPATH, inp_xpath)))
+
+for i in range(100):
+    input_box.send_keys(string + Keys.ENTER)
+    time.sleep(10)
+
+================
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+from openpyxl import load_workbook
+import pandas as pd
+
+workbook = load_workbook(filename="TEST.xlsx")
+sheet = workbook.active
+
+print(sheet["A"])
+
+options = webdriver.ChromeOptions()
+options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+time.sleep(2)
+w.get("https://web.whatsapp.com/")
+wait = WebDriverWait(w, 600)
+
+target = '"Driss"'
+string = 'UPDATE VANDAAG'
+
+x_arg = '//span[contains(@title,' + target + ')]'
+group_title = wait.until(EC.presence_of_element_located((
+    By.XPATH, x_arg)))
+group_title.click()
+
+inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="9"]'
+input_box = wait.until(EC.presence_of_element_located((
+    By.XPATH, inp_xpath)))
+
+for i in range(100):
+    input_box.send_keys(string + Keys.ENTER)
+    time.sleep(10)
+
+=======================
+
+from openpyxl import load_workbook
+import pandas as pd
+import openpyxl
+
+path = r"C:\Users\Beheerder\PycharmProjects\ROOSTER\TEST.xlsx"
+workbook = openpyxl.load_workbook(path)
+sheet = workbook.active
+
+plan_row = sheet.max_row
+x = 3 #wordt bepaald met datetime func
+
+for i in range(1,plan_row + 1):
+    cell = sheet.cell(row= i,column= x)
+    print(cell.value)
+
+========================
+
+from openpyxl import load_workbook
+import pandas as pd
+import openpyxl
+
+path = r"C:\Users\Beheerder\PycharmProjects\ROOSTER\TEST.xlsx"
+workbook = openpyxl.load_workbook(path)
+sheet = workbook.active
+
+plan_row = sheet.max_row
+x = 3 #wordt bepaald met datetime func
+
+for i in range(1,plan_row + 1):
+    cell = sheet.cell(row= i,column= x)
+    print(cell.value)
+#MAAK EEN LIST MET ALLE LOCATIES ALS ITERATOR VOOR SHEETS_NAMEN
+
+======================
+
+import time
+import openpyxl
+from openpyxl import load_workbook
+
+
+list = ("GELDERMALSEN","BEST","ROSMALEN")
+for x in list:
+    time.sleep(2)
+    print(x)
+
+workbook = load_workbook(filename="TEST.xlsx")
+sheet = workbook.active
+
+==================
+
+from openpyxl import load_workbook
+import pandas as pd
+import openpyxl
+
+path = r"C:\Users\Beheerder\PycharmProjects\ROOSTER\ROOSTER.xlsx"
+workbook = openpyxl.load_workbook(path)
+
+
+Locatie = ("GELDERMALSEN","BEST","ROSMALEN")
+for x in Locatie:
+    print(x)
+    sheet = workbook[x]
+
+
+    plan_row = sheet.max_row
+    y = 20 #wordt bepaald met datetime func
+
+    for i in range(1,plan_row + 1):
+        cell = sheet.cell(row= i,column= y)
+        print(cell.value)
+   
+======================
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+from openpyxl import load_workbook
+import pandas as pd
+
+options = webdriver.ChromeOptions()
+options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+time.sleep(2)
+w.get("https://web.whatsapp.com/")
+wait = WebDriverWait(w, 600)
+
+workbook = load_workbook(filename="ROOSTER.xlsx")
+sheet = workbook.active
+
+name = ['"Driss"','"Papa"']
+mylist = []
+
+
+
+i = 2 #DATETIME MOET UITEINDELIJK BEPALEN
+for value in sheet.iter_rows('A{}:A{}'.format(sheet.min_row,sheet.max_row)):
+    for cell in row:
+        mylist.append(cell.value)
+
+    print(str(value))
+    print(Names)
+
+    target = Names
+    string = str(value)
+
+    x_arg = '//span[contains(@title,' + target + ')]'
+    group_title = wait.until(EC.presence_of_element_located((
+        By.XPATH, x_arg)))
+    group_title.click()
+
+    inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="9"]'
+    input_box = wait.until(EC.presence_of_element_located((
+        By.XPATH, inp_xpath)))
+
+    for i in range(1):
+        input_box.send_keys("Vandaag"+ string + Keys.ENTER)
+
+print(mylist)

@@ -1,0 +1,645 @@
+
+import datetime
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+from openpyxl import load_workbook
+import schedule
+
+
+
+def func():
+    try:
+        date = datetime.datetime.now()
+        y = int(date.strftime("%d")) - 1
+
+        options = webdriver.ChromeOptions()
+        options.add_argument(r"user-data-dir=C:\Users\Beheerder\AppData\Local\Google\Chrome\User Data")
+        w = webdriver.Chrome(executable_path=r"C:\Users\Beheerder\PycharmProjects\ROOSTER\chromedriver.exe", options=options)
+
+        time.sleep(2)
+        w.get("https://web.whatsapp.com/")
+        wait = WebDriverWait(w, 600)
+
+        with open('MAAND.txt', 'r') as file:
+            Maand = file.read().strip()
+
+        Bestand = str(Maand) + ".xlsx"
+        print(Bestand)
+
+        #BESTAND MOET UIT EEN .TXT GEHAALD WORDEN DIE VERANDERD KAN WORDEN ELKE MAAND BESTAND NAAM VERANDEREN
+
+        workbook = load_workbook(filename=Bestand)
+
+        newlist= []
+
+        Dictionary = {
+            "GELDERMALSEN" : '"Bodegraven"',
+            "BEST" : '"Best"',
+            "ROSMALEN" : '"Rosmalen"'
+        }
+        for key , value in dictionary.items():
+            sheet = workbook[key]
+            target = value
+            print(key,value)
+            time.sleep(1)
+
+            plan_row = sheet.max_row
+            for i in range(1, plan_row + 1):
+
+                cell = sheet.cell(row=i, column=y)
+                newlist.append(str(cell.value))
+
+            time.sleep(2)
+            x_arg = '//span[contains(@title,' + target + ')]'
+            group_title = wait.until(EC.presence_of_element_located((
+                By.XPATH, x_arg)))
+            group_title.click()
+
+            time.sleep(2)
+
+            inp_xpath = '//div[@class="_13NKt copyable-text selectable-text"][@data-tab="10"]'
+            input_box = wait.until(EC.presence_of_element_located((
+                By.XPATH, inp_xpath)))
+
+            string = ' \n'.join(newlist)
+            print(string)
+            newlist.clear()
+            time.sleep(1)
+
+            input_box.send_keys("ROOSTER " + string + Keys.ENTER)
+            time.sleep(2)
+    finally:
+        w.close()
+
+func()
+
+#schedule.every().day.at('00:00').do(func())
+
+#while True:
+ #   schedule.run_pending()
+===================          
+
+  #hier zitten duplicates dates in bv: 3 berichten op de 30ste = 3 x 30 values
+            date = chat.df['date'][chat_strings]
+            string_dates = str(date)[8:10]
+            message = chat.df['message'][chat_strings]
+
+            messages = str(message)
+            messages1 = messages.split()
+
+
+
+
+            if "Vandaag" in messages1:
+                print(messages1)
+            else:
+                continue
+
+            #names_list.append(string_dates)
+            #names_list.append(messages)
+
+print(names_list)
+
+
+
+
+    #plan_row = sheet.max_row
+    #for i in range(1, plan_row + 1):
+        #cell = sheet.cell(row=i, column=y)
+        #newlist.append(str(cell.value))
+
+======================
+
+set_index_to_date = chat.df.set_index('date')
+
+#i.p.v de dates handmatig te moeten defineren elke keer kijk of je met datetime kan doen _eerste_van_de_maand_ tot en met _current_date_
+date_index = set_index_to_date.loc['2023-09-01':'2023-09-30']
+
+print(date_index.tail(['message']))
+
+set_index_to_date = chat.df.set_index('date')
+date_index = set_index_to_date.loc['2023-09-01':'2023-09-30']
+
+workbook = openpyxl.load_workbook('ROOSTER_SHEETS_TEST.xlsx')
+
+#nog een dict maken met de namen die uit whatsapp worden getrokken en die dan corresponderende personeelnummers geven
+#zet maar beter in een apart bestand
+
+===========
+
+new_list = []
+#date_index = chat.df.set_index('date')
+dates = chat.df.query('date > 20230901 and (username == "Rowaid")')
+
+
+=============
+
+new_column = chat.df.query('new_column > 20230901')
+
+chat.df['new_column'] = list(zip(chat.df.date, chat.df.message))
+
+new_column = chat.df.query('new_column > 20230901')
+for chat in new_column:
+    print(chat)
+    time.sleep(1)
+
+===========
+
+#!!!! WERKT CODE!!!
+
+
+date_filter = chat.df.query('date > 20230901 and (username == "Rowaid")')
+date_filter['new_column'] = list(zip(date_filter.date, date_filter.message))
+
+for column in date_filter['new_column']:
+    print(column)
+    time.sleep(1)
+
+=============
+#!!!! BETERE VERSIE WERKENDE CODE
+
+date_filter = chat.df.query('date > 20230901 and (username == "Rowaid")')
+new_column = list(date_filter[['date','message']].itertuples(index=False,name=None))
+
+
+for column in new_column:
+    dates_list = column[0]
+    dates_string = str(dates_list)
+    dates = dates_string[8:10]
+    
+=========
+for sheets in sheet.values:
+
+=========
+
+
+names_list = []
+
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            cell_obj = sheet.cell(row=1, column=i)
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+            if cell_obj.value == int(dates):
+                print("True")
+                print(cell_obj.value)
+
+===========
+
+
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            cell_obj = sheet.cell(row=4, column=2)
+
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                if names in cell_obj.value:
+                    print("true")
+                    print(cell_obj.value)
+
+                else:
+                    print("false")
+
+===============
+
+numbers_list = [1,2,3,4,5,6,7,8,9,10]
+names_list = []
+for key, value in dictionary.items():
+    names_list = []
+    sheet = workbook[key]
+    target = value
+    print(key, value)
+    time.sleep(1)
+    for numbers in numbers_list:
+
+        plan_row = sheet.max_row
+        for i in range(1, plan_row + 1):
+            cell = sheet.cell(row=i, column=numbers)
+            names_list.append(str(cell.value))
+            print(cell.value)
+
+==========================
+
+for key, value in dictionary.items():
+    names_list = []
+    sheet = workbook[key]
+    target = value
+    print(key,value)
+
+    for row in sheet.iter_rows():
+
+        for cell in row:
+            for column in new_column:
+                dates_raw = column[0]
+                dates_string = str(dates_raw)
+                dates = dates_string[8:10]
+                date = int(dates) + 2
+
+                messages_raw = column[1]
+                messages_string = str(messages_raw)
+                messages_filter = messages_string.split()
+                messages = messages_filter.pop(0)
+                for message in messages_filter:
+                    #print(message)
+
+                    if message in str(cell.value):
+                        print("\n")
+                        print(cell.value)
+
+                        print(sheet.cell(row=cell.row, column=date).value)
+
+
+
+==========
+personeelnummers_dict = {
+    "Jawad":"1",
+    "": "",
+    "": "",
+    "": ""
+}
+
+dictionary = {
+    "TIEL": '"_chat_tiel.txt"',
+    #"GELDERMALSEN": '"_chat_geldermalsen.txt"',
+    #"WAALWIJK": '"_chat_waalwijk.txt"',
+    "WAARDENBURG": '"_chat_waardenburg.txt"'
+}
+
+===========
+sheet = workbook.active
+for row in sheet.iter_rows():
+    for cell in row:
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+            for message in messages_filter:
+                print(messages_filter)
+                if message in str(cell.value):
+                    print(message)
+                    print(sheet.cell(row=cell.row, column=1).value)
+
+============
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            #date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                #print(dates)
+                #print(names)
+
+=============
+
+def personeelcodes(naam):
+    naam_dict = {
+        "Jawad" : 456,
+        "Kamran": 456,
+        "Veronica": 456,
+    }
+
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                #print(dates)
+                #print(names)
+                #maak een functie die je kan roepen, die de namen als args, gebruikt om ze aan een personeelscode te koppelen zodat die die waardes kan gebruiken als row waardes
+                print(sheet.cell(row=2, column=date).value)
+
+=========
+for key, value in dictionary.items():
+    sheet = workbook[key]
+    target = value
+    print(key, value)
+
+    plan_row = sheet.max_row
+    for i in range(1, plan_row + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            #gaat maar tot 29
+            y = int(dates)
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+            for message in messages_filter:
+
+                cell = sheet.cell(row=i, column=2)
+                if message in str(cell.value):
+                    print(dates)
+                    print(cell.row)
+==============
+#zorg ervoor dat je elke keer bij veranderen van sheet weer empty list hebt
+
+personeelcodes_list = []
+
+personeelcode_dict = {
+
+    "Jawad": 5,
+    "Veronica": 3,
+    "Kamran": 1
+}
+
+for column in new_column:
+    dates_raw = column[0]
+    dates_string = str(dates_raw)
+    dates = dates_string[8:10]
+    date = int(dates) + 2
+
+    messages_raw = column[1]
+    messages_string = str(messages_raw)
+    messages_filter = messages_string.split()
+    messages = messages_filter.pop(0)
+    dag_list = []
+
+    for message in messages_filter:
+        for naam, personeelcode in personeelcode_dict.items():
+            if message == naam:
+                #je hoeft de list niet te vervangen, je kan alle codes gewoon in een nieuwe list zetten
+                #alleen je moet wel de listen met codes per dag weer in een andere list zetten zodat bij het loopen je per dag kan loopen, list in een list
+                dag_list.append(personeelcode)
+    personeelcodes_list.append(dag_list)
+print(len(personeelcodes_list))
+
+================
+sheet = workbook.active
+for row in sheet.iter_rows():
+    for cell in row:
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+            for message in messages_filter:
+                print(date)
+                print(message)
+
+#                if message in str(cell.value):
+                    #print(sheet.cell(row=cell.row, column=1).value)
+
+                    #VRAAG AAN CHATGPT
+
+==============
+personeelcode_dict = {
+
+    "Jawad": 5,
+    "Veronica": 3,
+    "Kamran": 1
+}
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                column_letter = personeelcode_dict.get(names)
+                cell = sheet[f"{column_letter}{names}"]
+                cell.value = 1
+                print(cell.value)
+
+workbook.save(bestand)
+
+===========
+for key, value in dictionary.items():
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            for name in messages_filter:
+                column_letter = personeelcode_dict.get(name)
+                if column_letter:
+                    # Construct a valid cell reference using column letter and row number
+                    cell_reference = f"{column_letter}{date}"
+                    cell = sheet[cell_reference][0]
+                    cell.value = 1
+                    print(cell.value)
+
+# Save the workbook after updating
+workbook.save(bestand)
+
+========
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            #date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            #hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                personeelcode = personeelcode_dict.get(names)
+                print(personeelcode)
+                print(dates)
+                print(names)
+
+==============
+for key, value in dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_row + 1):
+
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            # hij gaat maar tot 29ste omdat die maar chat gegevens tot die datum heeft
+
+            for names in messages_filter:
+                personeelcode = personeelcode_dict.get(names)
+                #print(personeelcode)
+                cell = sheet.cell(row=personeelcode, column=date)
+                print(cell.value)
+                #print(names)
+                #print(date)
+
+=============
+
+#RIJSKOSTEN UITEINDELIJK OOK AUTOMATISEREN
+import openpyxl
+import pandas
+from whatstk import WhatsAppChat
+import pandas as pd
+from openpyxl import load_workbook
+import time
+
+filepath = '_chat_tiel.txt'
+
+#maak een dict waar de bestanden namen gekoppeld zijn aan de locatie namen in het excel bestand
+bestand = 'ROOSTER_SHEETS_TEST.xlsx'
+chat = WhatsAppChat.from_source(filepath=filepath)
+workbook = load_workbook(filename=bestand)
+df = pd.read_excel(bestand, sheet_name="TIEL")
+
+#date filter automatisch maken
+date_filter = chat.df.query('date > 20230901 and (username == "Rowaid")')
+new_column = list(date_filter[['date','message']].itertuples(index=False,name=None))
+
+locaties_dictionary = {
+    "TIEL": '"_chat_tiel.txt"',
+    #"GELDERMALSEN": '"_chat_geldermalsen.txt"',
+    #"WAALWIJK": '"_chat_waalwijk.txt"',
+    "WAARDENBURG": '"_chat_waardenburg.txt"'
+}
+uren_dictionary = {
+
+}
+#uiteindelijk de al het personeel in aparte dicts zetten per locatie, en dan alle dicts in lists
+#dan eerst de juiste dict zoeken en dan pas doorheen loopen voor personeelcodes
+personeelcode_dict = {
+
+    "Jawad": 3,
+    "Veronica": 2,
+    "Kamran": 1
+}
+
+for key, value in locaties_dictionary.items():
+
+    sheet = workbook[key]
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+    for i in range(1, max_col + 1):
+
+        for column in new_column:
+            dates_raw = column[0]
+            dates_string = str(dates_raw)
+            dates = dates_string[8:10]
+            date = int(dates) + 2
+
+            messages_raw = column[1]
+            messages_string = str(messages_raw)
+            messages_filter = messages_string.split()
+            messages = messages_filter.pop(0)
+
+            for names in messages_filter:
+                personeelcode = personeelcode_dict.get(names)
+                for row in sheet.iter_rows(min_row=2):  # Assuming header is in the first row
+                    row_values = [cell.value for cell in row]
+                    if personeelcode in row_values:
+                        result = row[0].row
+                        cell = sheet.cell(row=result, column=date)
+                        cell.value = 5
+workbook.save(bestand)
